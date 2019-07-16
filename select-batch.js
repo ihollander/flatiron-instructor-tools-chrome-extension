@@ -1,5 +1,7 @@
 // select batch
 chrome.storage.sync.get("batchId", ({ batchId }) => {
-  $(".batches").val(batchId);
-  $(".batches").trigger("change");
+  const s = document.createElement("script");
+  s.textContent = `(()=>{$('.batches').val(${batchId}),$('.batches').trigger('change')})()`;
+  document.head.appendChild(s);
+  s.remove();
 });

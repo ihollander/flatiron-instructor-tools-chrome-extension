@@ -14,7 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
         option.textContent = batch.name;
         batchList.appendChild(option);
       });
-    });
+    })
+    .catch(console.error);
 
   // set input value based on storage
   chrome.storage.sync.get("batchId", ({ batchId }) => {
