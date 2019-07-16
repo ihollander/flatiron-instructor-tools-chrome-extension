@@ -1,15 +1,15 @@
 {
   "name": "Flatiron Instructor Toolz",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Cool 🛠 for Flatiron instructors",
-  "permissions": ["activeTab","declarativeContent","storage"],
+  "permissions": ["tabs","activeTab","declarativeContent","storage"],
   "background": {
     "scripts": ["background.js"],
     "persistent": false
   },
   "content_scripts": [
     {
-      "matches": ["https://learn.co/curriculum/tracks/*"],
+      "matches": ["https://learn.co/curriculum/*"],
       "js": ["content.js"],
       "run_at": "document_idle"
     }

@@ -1,6 +1,6 @@
 chrome.runtime.onInstalled.addListener(function() {
-  chrome.storage.sync.set({ batchId: 1012 }, function(data) {
-    console.log("The data is", data);
+  chrome.storage.sync.set({ batchId: 1012 }, data => {
+    console.log(data);
   });
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
     chrome.declarativeContent.onPageChanged.addRules([
@@ -13,5 +13,17 @@ chrome.runtime.onInstalled.addListener(function() {
         actions: [new chrome.declarativeContent.ShowPageAction()]
       }
     ]);
+  });
+  chrome.tabs.onUpdated.addListener((tabId, change, tab) => {
+    if (
+      change.url &&
+      change.url.startsWith("https://learn.co/curriculum/tracks")
+    ) {
+      // send a message to content.js
+      chrome.tabs.sendMessage(tabId, {
+        message: "URL_CHANGE",
+        url: change.url
+      });
+    }
   });
 });
