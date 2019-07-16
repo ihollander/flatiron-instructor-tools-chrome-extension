@@ -10,7 +10,16 @@
       </style>
     </head>
     <body>
-      <button id="changeColor"></button>
+      <form>
+        <div>
+          <label for="batchId">Select Batch ID</label>
+          <input id="batch-id" list="batch-list" name="batchId" placeholder="Batch ID"/>
+          <datalist id="batch-list">
+
+          </datalist>
+        </div>
+        <input type="submit" value="Save" />
+      </form>
       <script src="popup.js"></script>
     </body>
   </html>
