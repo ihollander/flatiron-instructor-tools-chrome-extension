@@ -19,6 +19,7 @@ chrome.runtime.onInstalled.addListener(function() {
       change.url &&
       change.url.startsWith("https://learn.co/curriculum/tracks")
     ) {
+      console.log(change.url);
       // send a message to content.js
       chrome.tabs.sendMessage(tabId, {
         message: "URL_CHANGE",

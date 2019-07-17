@@ -2,6 +2,7 @@
 // we need to know when the url for the tab has changed
 chrome.runtime.onMessage.addListener(function(request) {
   if (request.message === "URL_CHANGE") {
+    console.log(request.url);
     // clean up in case mutationObserver is still listening
     mutationObserver.disconnect();
     // still need to wait for the page to render
