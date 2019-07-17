@@ -1,6 +1,6 @@
 {
   "name": "Flatiron Instructor Toolz",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Cool 🛠 for Flatiron instructors",
   "permissions": ["tabs","activeTab","declarativeContent","storage"],
   "background": {

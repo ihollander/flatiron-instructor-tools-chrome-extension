@@ -1,33 +1,26 @@
-let prevUrl;
-
 // listen for messages sent from background.js
 // we need to know when the url for the tab has changed
 chrome.runtime.onMessage.addListener(function(request) {
   if (request.message === "URL_CHANGE") {
-    if (prevUrl !== request.url) {
-      // clean up in case mutationObserver is still listening
-      mutationObserver.disconnect();
-      // still need to wait for the page to render
-      mutationObserver.observe(document.body, {
-        childList: true,
-        subtree: true
-      });
-    }
-    prevUrl = request.url;
+    // clean up in case mutationObserver is still listening
+    mutationObserver.disconnect();
+    // still need to wait for the page to render
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
   }
 });
 
 const selectBatch = () => {
   // get batchId from extension storage
   chrome.storage.sync.get("batchId", ({ batchId }) => {
-    // check if the batch
+    // check if the batch exists
     if (document.querySelector(`.batches option[value="${batchId}"]`)) {
       const s = document.createElement("script");
       s.textContent = `(()=>{$('.batches').val(${batchId});$('.batches').trigger('change')})()`;
       document.head.appendChild(s);
       s.remove();
-      // $(".batches").val(batchId);
-      // $(".batches").trigger("change");
     }
   });
 };
