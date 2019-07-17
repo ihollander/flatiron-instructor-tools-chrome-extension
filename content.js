@@ -14,10 +14,12 @@ chrome.runtime.onMessage.addListener(function(request) {
 });
 
 const selectBatch = () => {
+  console.log("selectBatch");
   // get batchId from extension storage
   chrome.storage.sync.get("batchId", ({ batchId }) => {
     // check if the batch exists
     if (document.querySelector(`.batches option[value="${batchId}"]`)) {
+      console.log("run jquery script");
       const s = document.createElement("script");
       s.textContent = `(()=>{$('.batches').val(${batchId});$('.batches').trigger('change')})()`;
       document.head.appendChild(s);
