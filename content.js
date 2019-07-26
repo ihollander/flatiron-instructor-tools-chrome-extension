@@ -1,8 +1,7 @@
 // listen for messages sent from background.js
 // we need to know when the url for the tab has changed
-chrome.runtime.onMessage.addListener(function(request) {
+chrome.runtime.onMessage.addListener(function (request) {
   if (request.message === "URL_CHANGE") {
-    console.log(request.url);
     // clean up in case mutationObserver is still listening
     mutationObserver.disconnect();
     // still need to wait for the page to render
@@ -14,12 +13,10 @@ chrome.runtime.onMessage.addListener(function(request) {
 });
 
 const selectBatch = () => {
-  console.log("selectBatch");
   // get batchId from extension storage
   chrome.storage.sync.get("batchId", ({ batchId }) => {
     // check if the batch exists
     if (document.querySelector(`.batches option[value="${batchId}"]`)) {
-      console.log("run jquery script");
       const s = document.createElement("script");
       s.textContent = `(()=>{$('.batches').val(${batchId});$('.batches').trigger('change')})()`;
       document.head.appendChild(s);
@@ -30,8 +27,8 @@ const selectBatch = () => {
 
 // use mutationObserver to check when the element we need has been added
 // (also assuming that the page scripts we need are loaded at this point)
-const mutationObserver = new MutationObserver(function(mutations) {
-  mutations.forEach(function(mutation) {
+const mutationObserver = new MutationObserver(function (mutations) {
+  mutations.forEach(function (mutation) {
     const trackEl = Array.from(mutation.addedNodes).find(
       el => el.id === "track-explorer-layout"
     );
